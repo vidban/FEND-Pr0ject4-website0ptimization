@@ -423,6 +423,7 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+    // Set new width of pizza based on slider position
       switch(size) {
         case "1":
           newWidth = 25;
@@ -437,9 +438,12 @@ var resizePizzas = function(size) {
           console.log("bug in sizeSwitcher");
       }
 
+      // grab all elements whose have a class 'randomPizzaContainer' 
       var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
+      var rpl = randomPizzas.length;
 
-      for (var i = 0; i < randomPizzas.length; i++){
+      // set width of  each pizza in the class as the  new width
+      for (var i = 0; i < rpl; i++){
         randomPizzas[i].style.width = newWidth + "%";
       }
   }
@@ -490,8 +494,11 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  // grab all elements with class 'mover'
+  var items = document.getElementsByClassName('mover');
   var l = items.length;
+
+  //calculate values for pos and pos1
   var pos = document.body.scrollTop / 1250;
   var pos1 = [];
 
@@ -499,9 +506,10 @@ function updatePositions() {
     pos1.push(i%5);
   }
 
-  for (var i = 0; i < items.length; i++) {
+  // iterate through items
+  for (var i = 0; i < l; i++) {
     var phase = items[i].basicLeft + (Math.sin(pos + (pos1[i])) * 100);;
-    // items[i].style.left = phase + 'px';
+    // translate each item by amount 'phase'
     items[i].style.transform = 'translateX(' + phase + 'px)';
   }
 
