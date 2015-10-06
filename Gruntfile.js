@@ -76,7 +76,39 @@ module.exports = function(grunt) {
           src: 'index.html',
           dest: 'index.html'
         }
-    }
+    },
+    responsive_images: {
+      dev: {
+        options: {
+          engine: 'im',
+          sizes: [{
+                    name:'small',
+                    width:'320'
+                  },
+                  {
+                    name: 'medium',
+                    width: '640'
+                  },
+                  {
+                    name: 'large',
+                    width: '820'
+                  },
+                  {
+                    name: 'large',
+                    width: '1024',
+                    suffix: '_x2',
+                    qulity: 0.6
+                  }
+            ]
+        },
+        files: [{
+          expand: true,
+          src: ['*.{gif,jpg,png}'],
+          cwd: 'views/images/',
+          dest: 'views/images/'
+        }]
+      }
+    }    
   });
 
   // These plugins provide necessary tasks.
@@ -86,9 +118,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-responsive-images');
   
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat','inline']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'concat','inline','responsive_images']);
 
 };
