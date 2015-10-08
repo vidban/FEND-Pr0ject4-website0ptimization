@@ -424,6 +424,7 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
     // Set new width of pizza based on slider position
+    var newWidth;
       switch(size) {
         case "1":
           newWidth = 25;
@@ -502,13 +503,13 @@ function updatePositions() {
   var pos = document.body.scrollTop / 1250;
   var pos1 = [];
 
-  for (var i = 0; i<l; i++){
-    pos1.push(i%5);
+  for (var p = 0; p<l; p++){
+    pos1.push(p%5);
   }
 
   // iterate through items
   for (var i = 0; i < l; i++) {
-    var phase = items[i].basicLeft + (Math.sin(pos + (pos1[i])) * 100);;
+    var phase = items[i].basicLeft + (Math.sin(pos + (pos1[i])) * 100);
     // translate each item by amount 'phase'
     items[i].style.transform = 'translateX(' + phase + 'px)';
   }

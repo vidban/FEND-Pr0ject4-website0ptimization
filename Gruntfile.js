@@ -11,23 +11,14 @@ module.exports = function(grunt) {
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
-    concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
-      },
-      dist: {
-        src: ['lib/<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>.js'
-      }
-    },
     uglify: {
       options: {
-        banner: '<%= banner %>'
+        mangle: false
       },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
+      my_target:{
+        files: {
+          'views/js/main.min.js' : 'views/js/main.js'
+        }
       }
     },
     jshint: {
@@ -50,20 +41,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
-      }
-    },
-    qunit: {
-      files: ['test/**/*.html']
-    },
-    watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
+        src: ['views/js/main.js']
       }
     },
     inline: {
@@ -82,46 +60,57 @@ module.exports = function(grunt) {
         options: {
           engine: 'im',
           sizes: [{
-                    name:'small',
-                    width:'320'
-                  },
-                  {
                     name: 'medium',
                     width: '640'
                   },
                   {
-                    name: 'large',
-                    width: '820'
-                  },
-                  {
-                    name: 'large',
-                    width: '1024',
-                    suffix: '_x2',
-                    qulity: 0.6
+                    name: 'small',
+                    width: '115'
                   }
             ]
         },
         files: [{
           expand: true,
-          src: ['*.{gif,jpg,png}'],
+          src: ['pizzeria*.{gif,jpg,png}'],
           cwd: 'views/images/',
           dest: 'views/images/'
         }]
+      }
+    },
+    imagemin: {
+      dynamic: {
+        files: [
+        {
+          expand: true,
+          cwd: 'views/images/',
+          src: ['pizzeria-small.jpg'],
+          dest: 'views/images/min/'
+        }]
+      }
+    },
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      target: {
+        files: {
+          'views/css/style.min.css': ['views/css/style.css', 'css/bootstrap-grid.css']
+        }
       }
     }    
   });
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-inline');
-  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-inline');
   grunt.loadNpmTasks('grunt-responsive-images');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat','inline','responsive_images']);
+  grunt.registerTask('default', ['jshint']);
 
 };
