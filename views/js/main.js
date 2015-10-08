@@ -151,7 +151,7 @@ String.prototype.capitalize = function() {
 // Pulls adjective out of array using random number sent from generator
 function getAdj(x){
   switch(x) {
-    case "dark": 
+    case "dark":
       var dark = ["dark","morbid", "scary", "spooky", "gothic", "deviant", "creepy", "sadistic", "black", "dangerous", "dejected", "haunted", 
       "morose", "tragic", "shattered", "broken", "sad", "melancholy", "somber", "dark", "gloomy", "homicidal", "murderous", "shady", "misty", 
       "dusky", "ghostly", "shadowy", "demented", "cursed", "insane", "possessed", "grotesque", "obsessed"];
@@ -529,14 +529,16 @@ window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 32; i++) {
+  // variables to calculate number of pizzas to append
+  var s = 256;  
+  var sw = screen.width;  // calculat screen width
+  var cols = sw / s;      // calculat number of columns of pizzas based on screen width
+  var num = cols * 4;     // calculate number of pizzas based on columns
+
+  for (var i = 0; i < num; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
+    elem.src = "images/pizza-small.png";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
