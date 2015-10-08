@@ -13,7 +13,9 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-inline": "^0.3.6",
     "grunt-mkdir": "~0.1.2",
-    "grunt-responsive-images": "^0.1.6"
+    "grunt-pagespeed": "^1.0.0",
+    "grunt-responsive-images": "^0.1.6",
+    "ngrok": "^0.2.2"
   },
   "dependencies": {
     "grunt-responsive-images": "^0.1.6"

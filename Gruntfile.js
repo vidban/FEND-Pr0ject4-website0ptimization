@@ -1,4 +1,6 @@
 /*global module:false*/
+var ngrok = require('ngrok');
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -98,7 +100,39 @@ module.exports = function(grunt) {
           'views/css/style.min.css': ['views/css/style.css', 'css/bootstrap-grid.css']
         }
       }
-    }    
+    },
+    pagespeed: {
+      options: {
+        nokey: true,
+        locale: "en_GB",
+        threshold: 92
+      },
+      local: {
+        options: {
+          strategy: "desktop"
+        }
+      },
+      mobile: {
+        options: {
+          strategy: "mobile"
+        }
+      }
+    }   
+  });
+
+  grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
+    var done = this.async();
+    var port = 8080;
+
+    ngrok.connect(port, function(err,url) {
+      if (err !== null) {
+        grunt.fail.fatal(err);
+        return done();
+      }
+      grunt.config.set('pagespeed.options.url', url);
+      grunt.task.run('pagespeed');
+      done();
+    });
   });
 
   // These plugins provide necessary tasks.
@@ -108,7 +142,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  
+  grunt.loadNpmTasks('grunt-pagespeed');
 
   // Default task.
   grunt.registerTask('default', ['jshint']);
