@@ -44,18 +44,23 @@ ___
 1. Optimized javascript bottleneck by managing variables inside for-loop in updatePositions().
 1. Further reduced scripting time by using a faster method namely
  ``` javascript
- getElementsByClassName() ```
+ getElementsByClassName()
+ ```
  instead of
+ 
  ``` javascript
  document.querySelectorAll()
  ```
+ 
 1. Cached length of array for use in loops
 1. Managing amount of pizzas needed by using screen.width to calculate pizzas based on screen.
 1. Reduced layout time and gained a little more efficiency using
+
 ``` javascript
 transform: translateX()
 ```
 instead of
+
 ``` javascript
 style.left
 ```
