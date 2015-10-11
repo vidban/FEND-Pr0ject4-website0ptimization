@@ -378,7 +378,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = "images/pizza.png";
+  pizzaImage.src = "dest/images/pizza.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -496,7 +496,7 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   // grab all elements with class 'mover'
-  var items = document.getElementsByClassName('mover');
+  var items = document.getElementsByClassNameh('mover');
   var l = items.length;
 
   //calculate values for pos and pos1
@@ -531,14 +531,14 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   // variables to calculate number of pizzas to append
   var s = 256;  
-  var sw = screen.width;  // calculat screen width
-  var cols = sw / s;      // calculat number of columns of pizzas based on screen width
+  var sw = screen.width;  // calculate screen width
+  var cols = sw / s;      // calculate number of columns of pizzas based on screen width
   var num = cols * 4;     // calculate number of pizzas based on columns
 
   for (var i = 0; i < num; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza-small.png";
+    elem.src = "dest/images/pizza-small.png";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);

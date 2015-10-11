@@ -1,5 +1,4 @@
 /*global module:false*/
-var ngrok = require('ngrok');
 
 module.exports = function(grunt) {
 
@@ -19,7 +18,7 @@ module.exports = function(grunt) {
       },
       my_target:{
         files: {
-          'views/js/main.min.js' : 'views/js/main.js'
+          'views/dest/js/main.min.js' : 'views/src/js/main.js'
         }
       }
     },
@@ -43,7 +42,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['views/js/main.js']
+        src: ['views/src/js/main.js']
       }
     },
     inline: {
@@ -62,20 +61,28 @@ module.exports = function(grunt) {
         options: {
           engine: 'im',
           sizes: [{
-                    name: 'medium',
+                    name: 'large',
                     width: '640'
                   },
                   {
+                    name: 'medium',
+                    width: '320'
+                  },
+                  {
                     name: 'small',
+                    height: '130'
+                  },
+                  {
+                    name: 'smaller',
                     width: '115'
                   }
             ]
         },
         files: [{
           expand: true,
-          src: ['pizzeria*.{gif,jpg,png}'],
-          cwd: 'views/images/',
-          dest: 'views/images/'
+          cwd: 'views/src/images/',
+          src: ['pizzeria.jpg', 'pizza.png'],
+          dest: 'views/dest/images/'
         }]
       }
     },
@@ -84,9 +91,9 @@ module.exports = function(grunt) {
         files: [
         {
           expand: true,
-          cwd: 'views/images/',
+          cwd: 'views/dest/images/',
           src: ['pizzeria-small.jpg'],
-          dest: 'views/images/min/'
+          dest: 'views/dest/images/min/'
         }]
       }
     },
@@ -97,43 +104,12 @@ module.exports = function(grunt) {
       },
       target: {
         files: {
-          'views/css/style.min.css': ['views/css/style.css', 'css/bootstrap-grid.css']
+          'views/dest/css/style.min.css': ['views/src/css/style.css', 'views/src/css/bootstrap-grid.css']
         }
       }
-    },
-    pagespeed: {
-      options: {
-        nokey: true,
-        locale: "en_GB",
-        threshold: 92
-      },
-      local: {
-        options: {
-          strategy: "desktop"
-        }
-      },
-      mobile: {
-        options: {
-          strategy: "mobile"
-        }
-      }
-    }   
+    }
   });
 
-  grunt.registerTask('psi-ngrok', 'Run pagespeed with ngrok', function() {
-    var done = this.async();
-    var port = 8080;
-
-    ngrok.connect(port, function(err,url) {
-      if (err !== null) {
-        grunt.fail.fatal(err);
-        return done();
-      }
-      grunt.config.set('pagespeed.options.url', url);
-      grunt.task.run('pagespeed');
-      done();
-    });
-  });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -142,7 +118,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-pagespeed');
+
 
   // Default task.
   grunt.registerTask('default', ['jshint']);
