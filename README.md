@@ -49,7 +49,7 @@ ___
  instead of
  
  ``` javascript
- document.querySelectorAll()
+ querySelectorAll()
  ```
  
 1. Cached length of array for use in loops
@@ -71,11 +71,11 @@ style.width
 ```
 on loading and resized pizza.png to pizza-small.png so pizzas are already small when loaded.
 
-** Frame rate before optimization **
+**Frame rate before optimization**
 
 ![Frame rate before optimization](screenshots/fpsscrollingoriginal.png)
 
-** Frame rate after optimization **
+**Frame rate after optimization**
 
 ![Frame rate after optimization](screenshots/fpsscrollingoptimized.png)
 
@@ -85,11 +85,11 @@ ___
 
 1. Optimized resizePizzas() by removing function determingDX() and setting the width of the pizzas to the new width directly in changePizzaSizes()
 
-** Original Pizza Resize Time **
+**Original Pizza Resize Time**
 
 ![Pizza Resize Time Original](screenshots/resizepizzatimeoriginal.png)
 
-** Optimized Pizza Resize Time **
+**Optimized Pizza Resize Time**
 
 ![Pizza Resize Time Optimized](screenshots/resizepizzatimeoptimized.png)
 
@@ -99,7 +99,7 @@ ___
 
 1. Grunt
 
-** Plugins used: **
+**Plugins used:**
 
 - grunt-contrib-uglify
 - grunt-contrib-jshint
