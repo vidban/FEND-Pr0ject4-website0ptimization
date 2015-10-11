@@ -29,11 +29,11 @@ ___
 1. Made scripts asynchronous
 1. Optimized pizzeria image
 
-** Pagespeed score before: **
+**Pagespeed score before:**
 
 ![PageSpeed score before optimization](screenshots/pagespeedscoresoriginal.png)
 
-** PageSpeed score after: **
+**PageSpeed score after:**
 
 ![PageSpeed score after optimization](screenshots/pagespeedscoresoptimized.png)
 
