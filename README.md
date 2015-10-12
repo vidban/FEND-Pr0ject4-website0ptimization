@@ -47,23 +47,13 @@ ___
  getElementsByClassName()
  ```
  instead of
- 
+
  ``` javascript
  querySelectorAll()
  ```
- 
+
 1. Cached length of array for use in loops
-1. Managing amount of pizzas needed by using screen.width to calculate pizzas based on screen.
-1. Reduced layout time and gained a little more efficiency using
-
-``` javascript
-transform: translateX()
-```
-instead of
-
-``` javascript
-style.left
-```
+1. Managing amount of pizzas needed by using screen.width and windows.innerHeight to calculate pizzas based on screen.
 1. Removed
 ``` javascript
 style.height

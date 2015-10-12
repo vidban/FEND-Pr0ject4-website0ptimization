@@ -494,24 +494,23 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+    console.log(document.body.scrollTop / 1250);
 
   // grab all elements with class 'mover'
-  var items = document.getElementsByClassNameh('mover');
+  var items = document.getElementsByClassName('mover');
   var l = items.length;
 
-  //calculate values for pos and pos1
-  var pos = document.body.scrollTop / 1250;
-  var pos1 = [];
+  // create an array variable to store movement of each pizza;
+  var phase = [];
 
+  // push values for each pizza's movement in the phase variable
   for (var p = 0; p<l; p++){
-    pos1.push(p%5);
+     phase.push(items[p].basicLeft + 100 * (Math.sin((document.body.scrollTop / 1250) + (p%5))));
   }
 
-  // iterate through items
+  // iterate through items and apply left position
   for (var i = 0; i < l; i++) {
-    var phase = items[i].basicLeft + (Math.sin(pos + (pos1[i])) * 100);
-    // translate each item by amount 'phase'
-    items[i].style.transform = 'translateX(' + phase + 'px)';
+     items[i].style.left = phase[i] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -531,9 +530,13 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   // variables to calculate number of pizzas to append
   var s = 256;  
-  var sw = screen.width;  // calculate screen width
-  var cols = sw / s;      // calculate number of columns of pizzas based on screen width
-  var num = cols * 4;     // calculate number of pizzas based on columns
+  var sw = screen.width;              // calculate screen width
+  var cols = Math.ceil(sw / s) + 1;      // calculate number of columns of pizzas based on screen width
+  if (cols == 5) {                    // if number of columns is 5 change it to 6 so it doesn't align with phases
+    cols+= 1;
+  }
+  var wh = window.innerHeight;
+  var num = wh/ s*cols;     // calculate number of pizzas based on viewport height and columns calulated
 
   for (var i = 0; i < num; i++) {
     var elem = document.createElement('img');
