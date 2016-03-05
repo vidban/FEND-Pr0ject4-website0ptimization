@@ -1,4 +1,4 @@
-Click [here](http://vidban.github.io/FEND-Website0ptimization/) to view the project
+
 ## To view PageSpeed scores:
 
 1. Check out the repository
